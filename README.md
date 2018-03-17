@@ -39,7 +39,7 @@ Finally, run the node server locally.
 
 	node server
 	
-Now, open the local application on port 8080 at the URL: `http://localhost:3000/`.
+Now, open the local application on port 3000 at the URL: `http://localhost:3000/`.
 
 **Enjoy!**
 
