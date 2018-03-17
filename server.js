@@ -1,0 +1,52 @@
+'use strict';
+
+// Requiring Packages and files
+const express = require('express'),
+      exphbs = require('express-handlebars'),
+      bodyParser = require('body-parser'),
+      logger = require('morgan'),
+      mongoose = require('mongoose'),
+      methodOverride = require('method-override');
+
+// setting up the express app
+const PORT = process.env.PORT || 3000;
+let app = express();
+
+app
+    .use(bodyParser.json())
+    .use(bodyParser.urlencoded({ extended:true }))
+    .use(bodyParser.text())
+    .use(bodyParser.json({ type: 'application/vnd.api+json' }))
+    .use(methodOverride('_method'))
+    .use(logger('dev'))
+    .use(express.static(__dirname + '/public'))
+    .engine('handlebars', exphbs({ defaultLayout: 'main' }))
+    .set('view engine', 'handlebars')
+    .use(require('./controllers'));
+
+// configure mongoose, start the server and set mongoose to leverage promises
+mongoose.Promise = Promise;
+
+const dbURI = process.env.MONGODB_URI || "mongodb://localhost:27017/news";
+
+// Database configuration with mongoose
+mongoose.connect(dbURI);
+
+const db = mongoose.connection;
+
+// Show any mongoose errors
+db.on("error", function(error) {
+    console.log("Mongoose Error: ", error);
+});
+
+// Once logged in to the db through mongoose, log a success message
+db.once("open", function() {
+    console.log("Mongoose connection successful.");
+    // start the server, listen on port 3000
+    app.listen(PORT, function() {
+        console.log("The App is running on port" + PORT);
+    });
+});
+
+//Export the app
+module.exports = app;

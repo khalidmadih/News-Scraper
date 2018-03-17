@@ -1,14 +1,6 @@
 'use strict';
 
-/**
- * 
- * Homework Assignment 18 - All the News That's Fit to Scrape
- * Jarrett Tolman - controllers/api.js
- * 
- */
-
-// dependencies
-// =============================================================
+// Requiring Packages and files
 const express = require('express'),
       router = express.Router(),
       request = require('request'),
