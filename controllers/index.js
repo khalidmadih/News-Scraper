@@ -20,8 +20,8 @@ router.get('/', function(req, res) {
             } else {
                 console.log(articles);
                 let hbsObj = {
-                    title: 'My Awsome News Scrapper',
-                    subtitle: 'All the new you need in one place',
+                    title: 'My Awesome News Scrapper',
+                    subtitle: 'All the news you need in one place',
                     articles: articles
                 };
                 res.render('index', hbsObj);
